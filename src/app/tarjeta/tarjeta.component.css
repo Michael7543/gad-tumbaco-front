@@ -69,7 +69,8 @@
   width: 90%;
   border-radius: 9px;
   background: linear-gradient(145deg, #d2d2d2, #b0b0b0);
-
+  box-shadow: 8px 8px 16px #525252,
+    -8px -8px 16px #ffffff;
 }
 
 

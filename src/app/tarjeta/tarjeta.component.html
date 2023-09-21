@@ -62,11 +62,12 @@
 
 <div class="container card scalein animation-duration-1000">
   <h2>Registro de Usuarios</h2>
-  <p-table class="table__content shadow-6 m-3 surface-card" #dt [value]="listadousuario" dataKey="id" [rows]="10" id="season-tble"
-    [showCurrentPageReport]="true" [rowsPerPageOptions]="[2, 5, 10, 25, 50]" [paginator]="true"
+  <p-table class="table__content shadow-9 m-3 surface-card" #dt [value]="listadousuario" dataKey="id" [rows]="10" id="season-tble"
+    [showCurrentPageReport]="true"  [paginator]="true" responsiveLayout="scroll"
     currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros"
+    [rowHover]="true"
     [globalFilterFields]="['id','nombre','apellido','cedula','departamento']"
-    [tableStyle]="{ 'min-width': '75rem' }">
+    >
 
     <ng-template pTemplate="caption">
       <div class="flex justify-content-between">
@@ -221,7 +222,7 @@ currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros"
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="UsuarioForm.reset()">Cerrar</button>
               <p-toast></p-toast>
               <button style="margin-left: 9px; background-color: rgb(33, 162, 7);" type="submit"
-                class="btn btn-secondary" data-bs-dismiss="modal"  (click)="show()" [disabled]="UsuarioForm.invalid" >Guardar</button>
+                class="btn btn-secondary" data-bs-dismiss="modal" (click)="show()" [disabled]="UsuarioForm.invalid" >Guardar</button>
               
             </div>
           </div>

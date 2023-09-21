@@ -30,7 +30,7 @@ body {
 }
 
 .sidebar.active {
-  width: 260px;
+  width: 230px;
 }
 
 .sidebar .logo__content .logo {
@@ -50,12 +50,12 @@ body {
 .sidebar.active .logo__content .logo {
   opacity: 1;
   pointer-events: none;
-  gap: 12px;
+  gap: 3px;
 }
 
 .logo__content .logo i {
   font-size: 28px;
-  margin-right: 5px;
+  margin-right: 9px;
 }
 
 .logo__content .logo .logo__name {

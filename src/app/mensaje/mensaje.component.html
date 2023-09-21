@@ -1,0 +1,164 @@
+<div class="container card scalein animation-duration-1000">
+    <h2>Mensaje</h2>
+    <p-table class="table__content shadow-6 m-3 surface-card" #dtc2 [value]="listadomensaje" dataKey="id" [rows]="10" id="season-tble"
+      [showCurrentPageReport]="true" [rowsPerPageOptions]="[2, 5, 10, 25, 50]" [paginator]="true"
+      currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros" [globalFilterFields]="[
+          'id',
+          'nick',
+          'mensaje',
+
+        ]" [tableStyle]="{ 'min-width': '75rem' }">
+      <ng-template pTemplate="caption">
+        <div class="flex justify-content-between">
+          <span class="p-input-icon-left mb-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input pInputText type="search" (input)="dtc2.filterGlobal(getEventValue($event),'contains')"
+              placeholder="Buscar" />
+          </span>
+          <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
+            style="margin-left: 50px;" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help" style="margin-left: 20px;"></button>
+        </div>
+      </ng-template>
+  
+      <ng-template pTemplate="header">
+  
+        <tr>
+          <th >ID</th>
+          <th>Nombre
+            <p-columnFilter type="text" field="nick" display="menu"></p-columnFilter>
+          </th>
+          <th>Mensaje
+            <p-columnFilter type="text" field="mensaje" display="menu"></p-columnFilter>
+          </th>
+          <th>Acciones</th>
+      
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-mensajes let-rowIndex="rowIndex">
+  
+        <tr>
+          <td>{{ mensajes.id }}</td>
+          <td>{{ mensajes.nick }}</td>
+          <td>{{ mensajes.mensaje }}</td>
+
+        <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2"
+            style="background-color: rgb(196, 8, 8);"
+            (click)="eliminarMensaje(mensajes.id)"></button>
+ <!--          <button pButton pRipple  class="p-button-rounded p-button-warning m-2"
+            style="background-color: rgb(33, 162, 7);"
+            (click)="updateMensaje(mensajes.id)"></button> -->
+            <button pButton pRipple icon="pi pi-pencil"   class="p-button-rounded p-button-warning m-2"
+            style="background-color: rgb(33, 162, 7);" (click)="editmensaje(mensajes)"  data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
+          </td>
+
+        
+        
+         
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">No se han encontrado resultados</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Datos Tipo Concepto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="MensajeForm.reset()"></button>
+        </div>
+        <div class="modal-body">
+          <form action="#" id="miForm" [formGroup]="MensajeForm"
+            (ngSubmit)="agregarMensaje(); MensajeForm.reset();">
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Nombre</span>
+                <input type="text" formControlName="nick" name="nick"
+                  placeholder="nombre del usuario" required>
+                <div class="text-danger"
+                  *ngIf="MensajeForm.get('nick')?.hasError('required') && MensajeForm.get('nick')?.touched">
+                  <span>Este campo es <strong>obligatorio</strong></span>
+                </div>
+              </div>
+              <div class="input-box">
+                <span class="details">Mensaje</span>
+                <input type="text" formControlName="mensaje" name="mensaje"
+                  placeholder="Descripción tipo concepto" required>
+                <div class="text-danger"
+                  *ngIf="MensajeForm.get('mensaje')?.hasError('required') && MensajeForm.get('mensaje')?.touched">
+                  <span>Este campo es <strong>obligatorio</strong></span>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                  (click)="MensajeForm.reset()">Cerrar</button>
+                <p-toast></p-toast>
+                <button style="margin-left: 9px; background-color: rgb(33, 162, 7);" type="submit"
+                  class="btn btn-secondary" (click)="show()"[disabled]="MensajeForm.invalid">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!--  modal 2 -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form action="#" id="miForm"  (ngSubmit)="updateMensaje()" [formGroup]="MensajeForm">
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Nombre</span>
+                <input type="text" value="{{selectMensaje.nick}}" id="nick" formControlName="nick" name="nick"
+                  placeholder="nombre del usuario" required>
+                <div class="text-danger"
+                  *ngIf="MensajeForm.get('nick')?.hasError('required') && MensajeForm.get('nick')?.touched">
+                  <span>Este campo es <strong>obligatorio</strong></span>
+                </div>
+              </div>
+              <div class="input-box">
+                <span class="details">Mensaje</span>
+                <input type="text" value="{{selectMensaje.mensaje}}" id="mensaje" formControlName="mensaje" name="mensaje"
+                  placeholder="Descripción tipo concepto" required>
+                <div class="text-danger"
+                  *ngIf="MensajeForm.get('mensaje')?.hasError('required') && MensajeForm.get('mensaje')?.touched">
+                  <span>Este campo es <strong>obligatorio</strong></span>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                >Cerrar</button>
+              <p-toast></p-toast>
+          
+                <button style="margin-left: 9px; background-color: rgb(33, 162, 7);" type="submit"
+                  class="btn btn-secondary"  (click)="show()">Actualizar</button>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+          
+

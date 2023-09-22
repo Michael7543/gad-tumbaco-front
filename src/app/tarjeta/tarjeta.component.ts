@@ -76,6 +76,7 @@ export class TarjetaComponent implements OnInit {
   
 
     editusuario(lista:UsuarioModel){
+      console.log('Datos recibidos para editar:', lista);
       this.selectUsuario = lista;
     }
  

@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { AppModule } from '../app.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BadgeModule } from 'primeng/badge';
@@ -19,6 +15,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { DockModule } from 'primeng/dock';
 import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -43,6 +40,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AppRoutingModule } from '../app-routing.module';
+import { LayoutModule } from '../layout/layout.module';
 
 
 @NgModule({
@@ -84,22 +82,63 @@ import { AppRoutingModule } from '../app-routing.module';
     InputTextareaModule,
     SidebarModule,
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
-    TableModule,
     CardModule,
     ButtonModule,
     ScrollPanelModule,
-    FormsModule
-  
+    LayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DynamicDialogModule,
   ],
   exports:[
-    HeaderComponent,
-    FooterComponent
+    MenuModule,
+    KeyFilterModule,
+    PickListModule,
+    DockModule,
+    TabMenuModule,
+    MenubarModule,
+    BrowserAnimationsModule,
+    BreadcrumbModule,
+    TabViewModule,
+    SplitterModule,
+    DividerModule,
+    ImageModule,
+    SkeletonModule,
+    BadgeModule,
+    BrowserModule,
+    TableModule,
+    CalendarModule,
+    SliderModule,
+    DialogModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    DropdownModule,
+    ButtonModule,
+    ToastModule,
+    InputTextModule,
+    ProgressBarModule,
+    HttpClientModule,
+    FileUploadModule,
+    ToolbarModule,
+    RatingModule,
+    RadioButtonModule,
+    InputNumberModule,
+    ConfirmDialogModule,
+    InputTextareaModule,
+    SidebarModule,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    CardModule,
+    ButtonModule,
+    ScrollPanelModule,
+    LayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DynamicDialogModule,
   ],
-  declarations: [
-    HeaderComponent,
-    FooterComponent
-   
-  ]
+  declarations: []
 })
-export class LayoutModule { }
+export class PrimengModule { }

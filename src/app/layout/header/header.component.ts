@@ -13,15 +13,6 @@ export class HeaderComponent implements OnInit {
   activeItem2!: MenuItem;
 
   ngOnInit(): void {
-    this.items = [
-      { label: 'Tarjeta', icon: 'pi pi-credit-card', routerLink: '/tarjeta' },
-      { label: 'Tipo Concepto', icon: 'pi pi-th-large  ', routerLink: '/tipoconcepto' },
-      { label: 'Tipo Consumidor', icon: 'pi pi-th-large', routerLink: '/tipoconsumidor' },
-      { label: 'Pagos', icon: 'pi pi-wallet', routerLink: '/pagos' },
-      { label: 'Bancos', icon: 'pi pi-money-bill', routerLink: '/bancos' },
-      { label: 'Centro de Costos', icon: 'pi pi-calculator', routerLink: '/centro_costo' },
-      { label: 'Mensajes', icon: 'pi pi-envelope', routerLink: '/mensajes' },
-    ];
 
     const btn = document.querySelector("#btn") as HTMLButtonElement;
     const sidebar = document.querySelector(".sidebar") as HTMLElement;

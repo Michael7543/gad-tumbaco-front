@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import Swal from 'sweetalert2';
 import { UsuarioDTO } from '../../Dto/Usuario.dto';
 import { UsuarioModel, UpdateUsuarioDTO } from '../../entities/Usuario';
@@ -15,17 +14,18 @@ export class UsuarioComponent implements OnInit {
 
   UsuarioForm: FormGroup;
   listadousuario: UsuarioModel[] = []; //poner
-  selectUsuario:UpdateUsuarioDTO={nombre:'',apellido:''}; //
+  selectUsuario:UpdateUsuarioDTO={}; //
 
-  constructor(private usuarioService: UsuarioService, private form: FormBuilder,private messageService: MessageService) {
+  constructor(private usuarioService: UsuarioService, private form: FormBuilder) {
     {
       this.UsuarioForm = this.form.group({
         
-        nombre: ['', Validators.required],
-        apellido: ['', Validators.required],
-        cedula: ['', Validators.required],
-        departamento: ['', Validators.required],
-
+        nombres: ['', Validators.required],
+        apellidos: ['', Validators.required],
+        clave: ['', Validators.required],
+        identificacion: ['', Validators.required],
+        celular: ['', Validators.required],
+        correo: ['', Validators.required],
       })
     }
 
@@ -56,14 +56,16 @@ export class UsuarioComponent implements OnInit {
    
 
     updateUsuario(): void {
-      const id = this.selectUsuario.id ?? 0;
+      const id = this.selectUsuario.id_usuarios ?? 0;
      
-      const data: UsuarioDTO = {
-        nombre: this.UsuarioForm.get('nombre')?.value,
-        apellido: this.UsuarioForm.get('apellido')?.value,
-        cedula: this.UsuarioForm.get('cedula')?.value,
-        departamento: this.UsuarioForm.get('departamento')?.value,
-      };
+       const data: UsuarioDTO = {
+        nombres: this.UsuarioForm.get('nombres')?.value,
+        apellidos: this.UsuarioForm.get('apellidos')?.value,
+        correo: this.UsuarioForm.get('correo')?.value,
+        clave: this.UsuarioForm.get('clave')?.value,
+        celular: this.UsuarioForm.get('celular')?.value,
+        identificacion: this.UsuarioForm.get('identificacion')?.value,
+      }; 
     
       this.usuarioService.updateUsuario(id, data).subscribe((response) => {
         console.log(response);
@@ -81,7 +83,7 @@ export class UsuarioComponent implements OnInit {
       
     }
 
-    eliminarUsuario(id: number):void {
+    eliminarUsuario(id_usuarios: number):void {
       Swal.fire({
         title: '¿Está seguro?',
         text: 'No podrá revertir esta acción',
@@ -92,7 +94,7 @@ export class UsuarioComponent implements OnInit {
         confirmButtonText: 'Sí, eliminar'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.usuarioService.eliminarUsuario(id).subscribe(data => {
+          this.usuarioService.eliminarUsuario(id_usuarios).subscribe(data => {
             if (data && data) {
               this.listadousuario = data;
             }
@@ -117,9 +119,6 @@ export class UsuarioComponent implements OnInit {
       return event.target.value;
     }
 
-    show() {
-      this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Order submitted' });
-
-    }
+   
 
 }

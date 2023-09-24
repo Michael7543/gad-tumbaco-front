@@ -15,16 +15,18 @@ import { UsuarioDTO } from '../../Dto/Usuario.dto';
 export class TarjetaComponent implements OnInit {
   UsuarioForm: FormGroup;
   listadousuario: UsuarioModel[] = []; //poner
-  selectUsuario:UpdateUsuarioDTO={nombre:'',apellido:''}; //
+  selectUsuario:UpdateUsuarioDTO={}; //
 
-  constructor(private usuarioService: UsuarioService, private form: FormBuilder,private messageService: MessageService) {
+  constructor(private usuarioService: UsuarioService, private form: FormBuilder) {
     {
       this.UsuarioForm = this.form.group({
         
-        nombre: ['', Validators.required],
-        apellido: ['', Validators.required],
-        cedula: ['', Validators.required],
-        departamento: ['', Validators.required],
+        nombres: ['', Validators.required],
+        apellidos: ['', Validators.required],
+        clave: ['', Validators.required],
+        identificacion: ['', Validators.required],
+        celular: ['', Validators.required],
+        correo: ['', Validators.required],
       })
     }
 
@@ -55,13 +57,15 @@ export class TarjetaComponent implements OnInit {
    
 
     updateUsuario(): void {
-      const id = this.selectUsuario.id ?? 0;
+      const id = this.selectUsuario.id_usuarios ?? 0;
      
       const data: UsuarioDTO = {
-        nombre: this.UsuarioForm.get('nombre')?.value,
-        apellido: this.UsuarioForm.get('apellido')?.value,
-        cedula: this.UsuarioForm.get('cedula')?.value,
-        departamento: this.UsuarioForm.get('departamento')?.value,
+        nombres: this.UsuarioForm.get('nombres')?.value,
+        apellidos: this.UsuarioForm.get('apellidos')?.value,
+        correo: this.UsuarioForm.get('correo')?.value,
+        clave: this.UsuarioForm.get('clave')?.value,
+        celular: this.UsuarioForm.get('celular')?.value,
+        identificacion: this.UsuarioForm.get('identificacion')?.value,
       };
     
       this.usuarioService.updateUsuario(id, data).subscribe((response) => {
@@ -116,10 +120,7 @@ export class TarjetaComponent implements OnInit {
       return event.target.value;
     }
 
-    show() {
-      this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Order submitted' });
-
-    }
+ 
 
 
 

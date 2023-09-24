@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MessageService } from 'primeng/api';
-import { LayoutModule } from './layout/layout.module';
+import { LayoutModule } from './menu/layout/layout.module';
 import { ComponentsModule } from './main/components/components.module';
 
 
@@ -15,7 +14,7 @@ import { ComponentsModule } from './main/components/components.module';
     LayoutModule,
     ComponentsModule
   ],
-  providers: [MessageService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,10 +1,11 @@
+
 <div class="container card scalein animation-duration-1000">
   <h2>Registro de Usuarios</h2>
   <p-table class="table__content shadow-9 m-3 surface-card" #dt [value]="listadousuario" dataKey="id" [rows]="10" id="season-tble"
     [showCurrentPageReport]="true"  [paginator]="true" responsiveLayout="scroll"
     currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros"
     [rowHover]="true"
-    [globalFilterFields]="['id','nombre','apellido','cedula','departamento']"
+    [globalFilterFields]="['id_usuarios','nombres','apellidos','correo','identificacion','celular']"
     >
 
     <ng-template pTemplate="caption">
@@ -20,10 +21,12 @@
 
     <ng-template pTemplate="header">
       <tr>
-        <th>ID<p-columnFilter type="text" field="id" display="menu"></p-columnFilter></th>
-        <th>Nombre<p-columnFilter type="text" field="nombre" display="menu"></p-columnFilter>
-        <th>Apellido<p-columnFilter type="text" field="apellido" display="menu"></p-columnFilter></th>
-        <th>Cedula<p-columnFilter type="text" field="cedula" display="menu"></p-columnFilter></th>
+        <th>ID<p-columnFilter type="text" field="id_usuarios" display="menu"></p-columnFilter></th>
+        <th>Nombre<p-columnFilter type="text" field="nombres" display="menu"></p-columnFilter>
+        <th>Apellido<p-columnFilter type="text" field="apellidos" display="menu"></p-columnFilter></th>
+        <th>Correo<p-columnFilter type="text" field="correo" display="menu"></p-columnFilter></th>
+        <th>Identificacion<p-columnFilter type="text" field="identificacion" display="menu"></p-columnFilter></th>
+        <th>Celular<p-columnFilter type="text" field="celular" display="menu"></p-columnFilter></th>
         <th>Acciones</th>
 
       </tr>
@@ -39,13 +42,15 @@
 
     <ng-template pTemplate="body" let-usuario>
       <tr class="tablas">
-        <td>{{ usuario.id}}</td>
-        <td>{{ usuario.nombre }}</td>
-        <td>{{ usuario.apellido }}</td>
-        <td>{{ usuario.cedula }}</td>
+        <td>{{ usuario.id_usuarios}}</td>
+        <td>{{ usuario.nombres }}</td>
+        <td>{{ usuario.apellidos }}</td>
+        <td>{{ usuario.correo }}</td>
+        <td>{{ usuario.identificacion }}</td>
+        <td>{{ usuario.celular }}</td>
         <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2"
           style="background-color: rgb(196, 8, 8);"
-          (click)="eliminarUsuario(usuario.id)"></button>
+          (click)="eliminarUsuario(usuario.id_usuarios)"></button>
             <button pButton pRipple icon="pi pi-pencil"   class="p-button-rounded p-button-warning m-2"
             style="background-color: rgb(33, 162, 7);" (click)="editusuario(usuario)"  data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
           </td>
@@ -59,57 +64,6 @@
     </ng-template>
   </p-table>
 </div>
-<!-- <section class="footer-section">
-<div class="center-div">
-  <p class="font-weight-bold">Copyright 2023</p>
-</div>
-</section> -->
-
-<!-- 
-<div class="container card scalein animation-duration-1000">
-<h2>REGISTROS</h2>
-<p-table class="table__content shadow-6 m-3 surface-card" #dt [value]="consumidor" dataKey="id" [rows]="4"
-[showCurrentPageReport]="true" [rowsPerPageOptions]="[2, 5, 10, 25, 50]" [paginator]="true"
-currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros"
-    [globalFilterFields]="['idtarjeta','nombreTarjeta','descTarjeta','stateTarjeta','dateTarjeta','idUsurTarjeta']"
-[tableStyle]="{ 'min-width': '75rem' }">
-
-<ng-template pTemplate="header">
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Descripción
-      <p-columnFilter type="text" field="descTconsumidor" display="menu"></p-columnFilter>
-    </th>
-    <th>Estado
-      <p-columnFilter type="text" field="estadoTconsumidor" display="menu"></p-columnFilter>
-    </th>
-    <th>Fecha
-      <p-columnFilter type="text" field="fechaTconsumidor" display="menu"></p-columnFilter>
-    </th>
-    <th>ID Usuario</th>
-  </tr>
-</ng-template>
-<ng-template pTemplate="body" let-consumidor let-rowIndex="rowIndex">
-
-  <tr>
-    <td>{{ consumidor.idTipoConsumidor }}
-    </td>
-    <td>{{ consumidor.nombreTconsumidor }}</td>
-    <td>{{ consumidor.descTconsumidor }}</td>
-    <td>{{ consumidor.estadoTconsumidor }}</td>
-    <td>{{ consumidor.fechaTconsumidor }}</td>
-    <td>{{ consumidor.idUsuarioTconsumidor }}</td>
-  </tr>
-</ng-template>
-<ng-template pTemplate="emptymessage">
-  <tr>
-    <td colspan="5">No se han encontrado resultados</td>
-  </tr>
-</ng-template>
-</p-table>
-</div> -->
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -124,43 +78,62 @@ currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros"
           <div class="user-details">
             <div class="input-box">
               <span class="details">Nombre</span>
-              <input type="text" formControlName="nombre" name="nombre" placeholder="nombre usuario"
+              <input type="text" formControlName="nombres" name="nombres" placeholder="nombre usuario"
                 required>
               <div class="text-danger"
-                *ngIf="UsuarioForm.get('nombre')?.hasError('required') && UsuarioForm.get('nombre')?.touched">
+                *ngIf="UsuarioForm.get('nombres')?.hasError('required') && UsuarioForm.get('nombres')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
               </div>
             </div>
             <div class="input-box">
               <span class="details">Apellido:</span>
-              <input type="text" formControlName="apellido" name="apellido" placeholder="Apellido Usuario" required>
+              <input type="text" formControlName="apellidos" name="apellidos" placeholder="Apellido Usuario" required>
               <div class="text-danger"
-                *ngIf="UsuarioForm.get('apellido')?.hasError('required') && UsuarioForm.get('apellido')?.touched">
+                *ngIf="UsuarioForm.get('apellidos')?.hasError('required') && UsuarioForm.get('apellidos')?.touched">
+                <span>Este campo es <strong>obligatorio</strong></span>
+              </div>
+            </div>
+          
+            <div class="input-box">
+              <span class="details">Identificacion:</span>
+              <input type="text" formControlName="identificacion" name="identificacion" placeholder="Departamento" required>
+              <div class="text-danger"
+                *ngIf="UsuarioForm.get('identificacion')?.hasError('required') && UsuarioForm.get('identificacion')?.touched">
+                <span>Este campo es <strong>obligatorio</strong></span>
+              </div>
+            </div>
+              <div class="input-box">
+              <span class="details">Nr celular:</span>
+              <input type="text" formControlName="celular" name="celular" placeholder="nr. celular" required>
+              <div class="text-danger"
+                *ngIf="UsuarioForm.get('celular')?.hasError('required') && UsuarioForm.get('celular')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
               </div>
             </div>
             <div class="input-box">
-              <span class="details">Cedula:</span>
-              <input type="text" formControlName="cedula" name="cedula" placeholder="Cedula Usuario" required>
+              <span class="details">Correo:</span>
+              <input type="text" formControlName="correo" name="correo" placeholder="correo" required>
               <div class="text-danger"
-                *ngIf="UsuarioForm.get('cedula')?.hasError('required') && UsuarioForm.get('cedula')?.touched">
+                *ngIf="UsuarioForm.get('correo')?.hasError('required') && UsuarioForm.get('correo')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
               </div>
             </div>
             <div class="input-box">
-              <span class="details">Departamento</span>
-              <input type="text" formControlName="departamento" name="departamento" placeholder="Departamento" required>
+              <span class="details">clave:</span>
+              <input type="text" formControlName="clave" name="clave" placeholder="clave" required>
               <div class="text-danger"
-                *ngIf="UsuarioForm.get('departamento')?.hasError('required') && UsuarioForm.get('departamento')?.touched">
+                *ngIf="UsuarioForm.get('clave')?.hasError('required') && UsuarioForm.get('clave')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
               </div>
             </div>
+          
+        
         
             <div class="mb-3">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="UsuarioForm.reset()">Cerrar</button>
               <p-toast></p-toast>
               <button style="margin-left: 9px; background-color: rgb(33, 162, 7);" type="submit"
-                class="btn btn-secondary" data-bs-dismiss="modal" (click)="show()" [disabled]="UsuarioForm.invalid" >Guardar</button>
+                class="btn btn-secondary" data-bs-dismiss="modal" [disabled]="UsuarioForm.invalid" >Guardar</button>
               
             </div>
           </div>
@@ -185,27 +158,39 @@ currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros"
           <div class="user-details">
             <div class="input-box">
               <span class="details">Nombre</span>
-              <input type="text" value="{{selectUsuario.nombre}}" id="nombre" formControlName="nombre" name="nombre"
-                placeholder="nombre del usuario" required>
+              <input type="text" value="{{selectUsuario.nombres}}" id="nombres" formControlName="nombres" name="nombres"
+                placeholder="nombre" required>
             
             </div>
             <div class="input-box">
               <span class="details">Apellido</span>
-              <input type="text" value="{{selectUsuario.apellido}}" id="apellido" formControlName="apellido" name="apellido"
-                placeholder="Descripción tipo concepto" required>
+              <input type="text" value="{{selectUsuario.apellidos}}" id="apellidos" formControlName="apellidos" name="apellidos"
+                placeholder="apellido" required>
             
             </div>
             <div class="input-box">
-              <span class="details">cedula</span>
-              <input type="text" value="{{selectUsuario.cedula}}" id="cedula" formControlName="cedula" name="cedula"
-                placeholder="Descripción tipo concepto" required>
+              <span class="details">identificacion</span>
+              <input type="text" value="{{selectUsuario.identificacion}}" id="identificacion" formControlName="identificacion" name="identificacion"
+                placeholder="identificacion" required>
+            </div>
+            <div class="input-box">
+              <span class="details">celular</span>
+              <input type="text" value="{{selectUsuario.celular}}" id="celular" formControlName="celular" name="celular"
+                placeholder="celular" required>
+            </div>
+            <div class="input-box">
+              <span class="details">correo:</span>
+              <input type="text" value="{{selectUsuario.correo}}" id="correo" formControlName="correo" name="correo"
+                placeholder="correo" required>
 
             </div>
             <div class="input-box">
-              <span class="details">departamento</span>
-              <input type="text" value="{{selectUsuario.departamento}}" id="departamento" formControlName="departamento" name="departamento"
-                placeholder="Descripción tipo concepto" required>
+              <span class="details">Clave:</span>
+              <input type="text" value="{{selectUsuario.clave}}" id="clave" formControlName="clave" name="clave"
+                placeholder="clave" required>
+
             </div>
+            
             <div class="mb-3">
             </div>
             <div class="modal-footer">
@@ -214,7 +199,7 @@ currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros"
             <p-toast></p-toast>
         
               <button style="margin-left: 9px; background-color: rgb(33, 162, 7);" type="submit"
-                class="btn btn-secondary" data-bs-dismiss="modal" (click)="show()">Actualizar</button>
+                class="btn btn-secondary" data-bs-dismiss="modal" >Actualizar</button>
             </div>
           </div>
         </form>

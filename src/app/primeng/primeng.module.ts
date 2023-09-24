@@ -40,7 +40,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AppRoutingModule } from '../app-routing.module';
-import { LayoutModule } from '../layout/layout.module';
+import { LayoutModule } from '../menu/layout/layout.module';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -139,6 +140,7 @@ import { LayoutModule } from '../layout/layout.module';
     ReactiveFormsModule,
     DynamicDialogModule,
   ],
-  declarations: []
+  declarations: [],
+  providers:[MessageService]
 })
 export class PrimengModule { }

@@ -37,8 +37,8 @@ export class UsuarioService {
     );
   } */
 
-  eliminarUsuario(id: number): Observable<any>{
-    return this.http.delete(`${this.apiUrl}/eliminarusuario/${id}`);
+  eliminarUsuario(id_usuarios: number): Observable<any>{
+    return this.http.delete(`${this.apiUrl}/eliminarusuario/${id_usuarios}`);
   }
 
  /*  updateUsuario(usuario: UsuarioDTO,id: UsuarioModel['id'] ): Observable<any>{

@@ -1,11 +1,13 @@
 
 
 export interface UsuarioModel {
-    id: number;
-    nombre: string;
-    apellido: string;
-    cedula: string;
-    departamento: string;
+    id_usuarios: number;
+    nombres: string;
+    apellidos: string;
+    clave: string;
+    correo: string;
+    identificacion: string;
+    celular: string;
 }
 
 

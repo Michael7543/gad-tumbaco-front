@@ -1,15 +1,19 @@
 export class UsuarioDTO {
-    id?: number;
-    nombre: string;
-    apellido: string;
-    cedula: string;
-    departamento: string;
+    id_usuarios?: number;
+    nombres: string;
+    apellidos: string;
+    clave: string;
+    correo: string;
+    identificacion: string;
+    celular: string;
   
     constructor(data: UsuarioDTO) {
-      this.id = data.id;
-      this.nombre = data.nombre;
-      this.apellido = data.apellido;
-      this.cedula = data.cedula;
-      this.departamento = data.departamento;
+      this.id_usuarios = data.id_usuarios;
+      this.nombres = data.nombres;
+      this.apellidos = data.apellidos;
+      this.clave = data.clave;
+      this.correo = data.correo;
+      this.identificacion = data.identificacion;
+      this.celular = data.celular;
     }
   }

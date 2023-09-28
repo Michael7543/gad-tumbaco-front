@@ -10,8 +10,8 @@ import { UsuarioDTO } from '../Dto/Usuario.dto';
 })
 export class UsuarioService {
 
-  readonly API_URL:string="http://localhost:3000/usuarios/listarusuario";
-  readonly apiUrl:string="http://localhost:3000/usuarios";
+  readonly API_URL:string="http://localhost:3000/api/usuarios/listarusuario";
+  readonly apiUrl:string="http://localhost:3000/api/usuarios";
 
 
   constructor(private http:HttpClient) { }

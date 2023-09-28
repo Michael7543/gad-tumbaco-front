@@ -1,0 +1,143 @@
+<div class="container card scalein animation-duration-1000">
+  <h2>Registro de Departamentos</h2>
+  <p-table class="table__content shadow-9 m-3 surface-card" #dt [value]="listadodepartamento" dataKey="id" [rows]="10" id="season-tble"
+    [showCurrentPageReport]="true"  [paginator]="true" responsiveLayout="scroll"
+    currentPageReportTemplate="Datos {first} a {last} de {totalRecords} registros"
+    [rowHover]="true"
+    [globalFilterFields]="['id_departamentos','nombre','descripcion']"
+    >
+
+    <ng-template pTemplate="caption">
+      <div class="flex justify-content-between">
+        <span class="p-input-icon-left mb-2 md:mb-0">
+          <i class="pi pi-search"></i>
+          <input pInputText type="search" (input)="dt.filterGlobal(getEventValue($event),'contains')"
+            placeholder="Buscar" />
+        </span>
+        <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"  style="margin-left: 50px;" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID<p-columnFilter type="text" field="id_departamentos" display="menu"></p-columnFilter></th>
+        <th>Nombre<p-columnFilter type="text" field="nombre" display="menu"></p-columnFilter>
+        <th>Descripcion<p-columnFilter type="text" field="descripcion" display="menu"></p-columnFilter></th>
+        <th>Acciones</th>
+
+      </tr>
+
+    </ng-template>
+
+
+    <ng-template pTemplate="body" let-departamento>
+      <tr class="tablas">
+        <td>{{ departamento.id_departamentos}}</td>
+        <td>{{ departamento.nombre }}</td>
+        <td>{{ departamento.descripcion }}</td>
+        <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2"
+          style="background-color: rgb(196, 8, 8);"
+          (click)="eliminarDepartamento(departamento.id_departamentos)"></button>
+            <button pButton pRipple icon="pi pi-pencil"   class="p-button-rounded p-button-warning m-2"
+            style="background-color: rgb(33, 162, 7);" (click)="editdepartamento(departamento)"  data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
+          </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        En total hay {{listadodepartamento ? listadodepartamento.length : 0 }} entradas.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Datos Departamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="DepartamentoForm.reset()"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" [formGroup]="DepartamentoForm" (ngSubmit)="agregarDepartamento(); DepartamentoForm.reset()">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Nombre</span>
+              <input type="text" formControlName="nombre" name="nombre" placeholder="nombre "
+                required>
+              <div class="text-danger"
+                *ngIf="DepartamentoForm.get('nombre')?.hasError('required') && DepartamentoForm.get('nombre')?.touched">
+                <span>Este campo es <strong>obligatorio</strong></span>
+              </div>
+            </div>
+            
+            <div class="input-box">
+              <span class="details">Descripcion:</span>
+              <input  type="text" formControlName="descripcion" name="descripcion" placeholder="descripcion" required>
+              <div class="text-danger"
+                *ngIf="DepartamentoForm.get('descripcion')?.hasError('required') && DepartamentoForm.get('descripcion')?.touched">
+                <span>Este campo es <strong>obligatorio</strong></span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="DepartamentoForm.reset()">Cerrar</button>
+              <p-toast></p-toast>
+              <button style="margin-left: 9px; background-color: rgb(33, 162, 7);" type="submit"
+                class="btn btn-secondary" data-bs-dismiss="modal" [disabled]="DepartamentoForm.invalid" >Guardar</button>
+              
+            </div>
+          </div>
+        </form>
+</div>
+</div>
+</div>
+</div>
+
+
+ <!--  modal 2 -->
+ <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="#"  (ngSubmit)="updateDepartamento()" [formGroup]="DepartamentoForm">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Nombre</span>
+              <input type="text" value="{{selectDepartamento.nombre}}" id="nombre" formControlName="nombre" name="nombre"
+                placeholder="nombre" required>
+            
+            </div>
+            <div class="input-box">
+              <span class="details">Descripcion</span>
+              <input type="text" value="{{selectDepartamento.descripcion}}" id="descripcion" formControlName="descripcion" name="descripcion"
+                placeholder="descripcion" required>
+            
+            </div>        
+            <div class="mb-3">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              >Cerrar</button>
+            <p-toast></p-toast>
+        
+              <button style="margin-left: 9px; background-color: rgb(33, 162, 7);" type="submit"
+                class="btn btn-secondary" data-bs-dismiss="modal" >Actualizar</button>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+        
+
+
+

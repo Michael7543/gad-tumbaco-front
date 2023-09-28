@@ -4,12 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { TarjetaComponent } from './main/components/tarjeta/tarjeta.component';
 import { MensajeComponent } from './main/components/mensaje/mensaje.component';
 import { UsuarioComponent } from './main/components/usuario/usuario.component';
+import { DepartamentoComponent } from './main/components/departamento/departamento.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/tarjeta', pathMatch: 'full' },
+  { path: '', redirectTo: '/user', pathMatch: 'full' },
   { path: 'tarjeta', component: TarjetaComponent },
   { path: 'mensajes', component: MensajeComponent},
-  {path:'user',component:UsuarioComponent}
+  {path:'user',component:UsuarioComponent},
+  {path:'departamento',component: DepartamentoComponent}
+
 ];
 
 @NgModule({

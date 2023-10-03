@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuModule } from 'primeng/menu';
+import { SidebarAdministracionComponent } from './sidebar-administracion/sidebar-administracion.component';
+import { NavBarAdministacionComponent } from './nav-bar-administacion/nav-bar-administacion.component';
 
 @NgModule({
   imports: [
@@ -12,12 +14,15 @@ import { MenuModule } from 'primeng/menu';
   ],
   exports:[
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SidebarAdministracionComponent,
+    NavBarAdministacionComponent
   ],
   declarations: [
     HeaderComponent,
-    FooterComponent
-   
+    FooterComponent,
+    SidebarAdministracionComponent,
+    NavBarAdministacionComponent
   ]
 })
 export class LayoutModule { }

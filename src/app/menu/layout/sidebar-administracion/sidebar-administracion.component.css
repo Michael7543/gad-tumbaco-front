@@ -1,0 +1,27 @@
+.sidebar {
+    width: 17%;
+    background-color: #D9EDFF;  
+    color: #fff;
+    position: fixed;
+    height: 100%;
+    transition: width 0.3s;
+  }
+  .collapsed {
+    width: 8%; /* Ancho cuando está contraída */
+  }
+  .list-group-item {
+    text-align: left; 
+    height: 50px; 
+    border: none;   
+    background: #D9EDFF;  
+  }
+  a{
+    text-decoration: none;
+  }
+  .list-group-item:hover {
+    background-color: #B0D9FF;
+  }
+  .list-group .list-group-item{
+    width: 100%;  
+    font-size: 98%;
+  }

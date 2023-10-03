@@ -1,0 +1,15 @@
+<head>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<div [ngClass]="{'sidebar': true, 'collapsed': isCollapsed}">
+  <!--<button style="margin-top: 10px;" class="btn btn-outline-light" (click)="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>-->
+  <ul class="list-group">
+    <li class="text-center" style=" background: #002E59; width: 100%; padding-top: 10px; padding-bottom: 10px;">
+      <h5>Administracion</h5>
+    </li>
+    <a routerLink="/user"><button style="height: 10vh;" class="list-group-item"><i class="bx bxs-user"></i>
+        Usuarios</button></a>
+    <a routerLink="/departamento"><button style="height: 10vh;" class="list-group-item"><i
+          class="bx bxs-home"></i> Departamentos</button></a>
+  </ul>
+</div>

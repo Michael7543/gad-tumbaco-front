@@ -61,7 +61,7 @@ tablas {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
     height: 80%;
   }
   
@@ -105,7 +105,7 @@ tablas {
   
   }
   .container.card.scalein.animation-duration-1000 {
-    transform: translateX(72px);
+    transform: translateX(123px);
   }
   
   .container.card.scalein.animation-duration-1000 {

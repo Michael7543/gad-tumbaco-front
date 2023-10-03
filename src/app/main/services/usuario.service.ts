@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UpdateUsuarioDTO, UsuarioModel } from '../entities/Usuario';
 import { UsuarioDTO } from '../Dto/Usuario.dto';
+import { EstadoModel } from '../entities/Estado';
+import { RolesModel } from '../entities/Roles';
 
 
 @Injectable({
@@ -12,12 +14,21 @@ export class UsuarioService {
 
   readonly API_URL:string="http://localhost:3000/api/usuarios/listarusuario";
   readonly apiUrl:string="http://localhost:3000/api/usuarios";
+  readonly apiEstado:string ="http://localhost:3000/api/estados/listarestado";
+  readonly apiRoles:string="http://localhost:3000/api/roles/listarroles"
 
 
   constructor(private http:HttpClient) { }
 
   getUsuario(): Observable<UsuarioModel[]> {
     return this.http.get<UsuarioModel[]>(this.API_URL);
+  }
+
+  getEstado(): Observable<EstadoModel[]> {
+    return this.http.get<EstadoModel[]>(this.apiEstado);
+  }
+  getRoles(): Observable<RolesModel[]> {
+    return this.http.get<RolesModel[]>(this.apiRoles);
   }
 
   getUsuarioid(id: number): Observable<any> {
@@ -46,7 +57,7 @@ export class UsuarioService {
     return this.http.put<UsuarioModel>(url, usuario);
   }
  */
-  updateUsuario(id: number, report: UsuarioDTO): Observable<any>{
+  updateUsuario(id: number, report: UpdateUsuarioDTO): Observable<any>{
     return this.http.put(`${this.apiUrl}/actualizarusuario/${id}`, report )
   }
   

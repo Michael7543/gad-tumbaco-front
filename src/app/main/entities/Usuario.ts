@@ -1,3 +1,5 @@
+import { EstadoDTO } from "../Dto/Estado.dto";
+import { RolesDTO } from "../Dto/Roles.dto";
 
 
 export interface UsuarioModel {
@@ -8,6 +10,8 @@ export interface UsuarioModel {
     correo: string;
     identificacion: string;
     celular: string;
+    id_estado: EstadoDTO | null;
+    id_roles: RolesDTO | null;
 }
 
 

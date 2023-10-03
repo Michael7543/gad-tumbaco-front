@@ -21,12 +21,13 @@
 
     <ng-template pTemplate="header">
       <tr>
-        <th>ID<p-columnFilter type="text" field="id_usuarios" display="menu"></p-columnFilter></th>
-        <th>Nombre<p-columnFilter type="text" field="nombres" display="menu"></p-columnFilter>
-        <th>Apellido<p-columnFilter type="text" field="apellidos" display="menu"></p-columnFilter></th>
-        <th>Correo<p-columnFilter type="text" field="correo" display="menu"></p-columnFilter></th>
-        <th>Identificacion<p-columnFilter type="text" field="identificacion" display="menu"></p-columnFilter></th>
-        <th>Celular<p-columnFilter type="text" field="celular" display="menu"></p-columnFilter></th>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo</th>
+        <th>Identificacion</th>
+        <th>Rol</th>
+        <th>Estado</th>
         <th>Acciones</th>
 
       </tr>
@@ -47,7 +48,8 @@
         <td>{{ usuario.apellidos }}</td>
         <td>{{ usuario.correo }}</td>
         <td>{{ usuario.identificacion }}</td>
-        <td>{{ usuario.celular }}</td>
+        <td>{{ usuario.rol.nombre}}</td>
+        <td>{{ usuario.estado.nombre_estado}}</td>
         <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2"
           style="background-color: rgb(196, 8, 8);"
           (click)="eliminarUsuario(usuario.id_usuarios)"></button>
@@ -70,7 +72,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Datos Usuario</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Crear Usuario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="UsuarioForm.reset()"></button>
       </div>
       <div class="modal-body">
@@ -78,7 +80,7 @@
           <div class="user-details">
             <div class="input-box">
               <span class="details">Nombre</span>
-              <input type="text" formControlName="nombres" name="nombres" placeholder="nombre usuario"
+              <input type="text" (input)="onInputletras($event)" maxlength="18"  formControlName="nombres" name="nombres" placeholder="nombre usuario"
                 required>
               <div class="text-danger"
                 *ngIf="UsuarioForm.get('nombres')?.hasError('required') && UsuarioForm.get('nombres')?.touched">
@@ -87,7 +89,7 @@
             </div>
             <div class="input-box">
               <span class="details">Apellido:</span>
-              <input type="text" formControlName="apellidos" name="apellidos" placeholder="Apellido Usuario" required>
+              <input type="text" (input)="onInputletras($event)" maxlength="18"  formControlName="apellidos" name="apellidos" placeholder="Apellido Usuario" required>
               <div class="text-danger"
                 *ngIf="UsuarioForm.get('apellidos')?.hasError('required') && UsuarioForm.get('apellidos')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
@@ -96,7 +98,7 @@
           
             <div class="input-box">
               <span class="details">Identificacion:</span>
-              <input type="text" formControlName="identificacion" name="identificacion" placeholder="Departamento" required>
+              <input type="text" (input)="onInput($event)" maxlength="13"  keyfilter="int" formControlName="identificacion" name="identificacion" placeholder="ced/ruc" required>
               <div class="text-danger"
                 *ngIf="UsuarioForm.get('identificacion')?.hasError('required') && UsuarioForm.get('identificacion')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
@@ -104,7 +106,7 @@
             </div>
               <div class="input-box">
               <span class="details">Nr celular:</span>
-              <input type="text" formControlName="celular" name="celular" placeholder="nr. celular" required>
+              <input type="text" (input)="onInput($event)"  maxlength="10"  keyfilter="int"  formControlName="celular" name="celular" placeholder="nr. celular" required>
               <div class="text-danger"
                 *ngIf="UsuarioForm.get('celular')?.hasError('required') && UsuarioForm.get('celular')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
@@ -117,6 +119,9 @@
                 *ngIf="UsuarioForm.get('correo')?.hasError('required') && UsuarioForm.get('correo')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
               </div>
+              <div class="text-danger" *ngIf="UsuarioForm.get('correo')?.hasError('email')">
+                El correo electrónico no tiene un formato válido.
+              </div>
             </div>
             <div class="input-box">
               <span class="details">clave:</span>
@@ -125,6 +130,40 @@
                 *ngIf="UsuarioForm.get('clave')?.hasError('required') && UsuarioForm.get('clave')?.touched">
                 <span>Este campo es <strong>obligatorio</strong></span>
               </div>
+            </div>
+            <div class="input-box">
+              <span class="details">Estado</span>
+              <p-dropdown [options]="listadoestado"
+              formControlName="id_estado"
+              name="id_estado"
+              [virtualScroll]="true"
+              optionLabel="nombre_estado"
+              optionValue="id_estados"
+              id="id_estado"
+              [virtualScrollItemSize]="38"  
+              placeholder="*Tipo de Estado"
+              [filter]="true"
+              [filterBy]="'nombre_estado'"
+              >
+              
+            </p-dropdown>
+            </div>
+            <div class="input-box">
+              <span class="details">Roles</span>
+              <p-dropdown [options]="listadoroles"
+              formControlName="id_roles"
+              name="id_roles"
+              [virtualScroll]="true"
+              optionLabel="nombre"
+              optionValue="id_roles"
+              id="id_roles"
+              [virtualScrollItemSize]="38"  
+              placeholder="*Tipo de Roles"
+              [filter]="true"
+              [filterBy]="'nombre'"
+              >
+              
+            </p-dropdown>
             </div>
           
         
@@ -189,6 +228,26 @@
               <input type="text" value="{{selectUsuario.clave}}" id="clave" formControlName="clave" name="clave"
                 placeholder="clave" required>
 
+            </div>
+            <div class="input-box">
+              <span class="details">Estado:</span>
+              <input type="text" value="{{selectUsuario.id_estado}}"  label="nombre_estado" id="id_estado" formControlName="id_estado" name="id_estado"
+                placeholder="clave" required>
+<!--    <p-dropdown 
+              formControlName="id_estado"
+              name="id_estado"
+              
+              [virtualScroll]="true"
+              optionLabel="nombre_estado"
+              optionValue="id_estados"
+              id="id_estado"
+              [virtualScrollItemSize]="38"  
+              placeholder="*Tipo de Estado"
+              [filter]="true"
+              [filterBy]="'nombre_estado'"
+              >
+              
+            </p-dropdown> -->
             </div>
             
             <div class="mb-3">
